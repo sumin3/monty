@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "monty.h"
 int main(int ac, char **av)
 {
 	stack_t *stack = NULL;
@@ -9,9 +9,6 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	file_helper(av[1], stack);
-	free_stack(&stack);
-	stack = NULL;
-	printf("here\n");
 	exit(EXIT_SUCCESS);
 }
 
@@ -21,7 +18,6 @@ int file_helper(char *filename, stack_t *stack)
 	size_t buff_size = 0;
 	char *token = NULL, *buff = NULL;
 	FILE *fd = NULL;
-
 
 	if (filename == NULL)
 		exit(EXIT_FAILURE);
@@ -37,7 +33,7 @@ int file_helper(char *filename, stack_t *stack)
 		check_instruct(token, line_number)(&stack, line_number);
 	}
 	free(buff);
-/*	free(token);*/
+	free_stack(stack);
 	fclose(fd);
 	return (0);	
 }

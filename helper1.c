@@ -1,11 +1,11 @@
-#include "holberton.h"
-void free_stack(stack_t **stack)
+#include "monty.h"
+void free_stack(stack_t *stack)
 {
-	while (*stack)
+	while (stack)
 	{
-		printf("in free\n");
-		free(*stack);
-		*stack = (*stack)->next;
+
+		free(stack);
+		stack = (stack)->next;
 	}
 }
 int stack_len(stack_t *stack)
