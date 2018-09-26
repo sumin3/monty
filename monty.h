@@ -56,4 +56,6 @@ void _nop(stack_t **stack, unsigned int line_number);
 int _atoi(char *s);
 int stack_len(stack_t *stack);
 void free_stack(stack_t *stack);
+int is_integer(char *s);
+
 #endif

@@ -32,8 +32,9 @@ int file_helper(char *filename, stack_t *stack)
 		token = strtok(buff, " \n");
 		check_instruct(token, line_number)(&stack, line_number);
 	}
-	free(buff);
 	free_stack(stack);
+	free(buff);
+
 	fclose(fd);
 	return (0);	
 }
@@ -57,6 +58,8 @@ void (*check_instruct(char *token, unsigned int line_number))(stack_t **stack, u
 		if (cmp == 0)
 			return (op[i].f);
 	}
+	if (token[0] == '#')
+		return(op[6].f);
 	if (cmp != 0)
 	{
 		printf("L%u: unknown instruction %s\n", line_number, token);
