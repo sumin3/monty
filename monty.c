@@ -1,4 +1,10 @@
 #include "monty.h"
+/**
+ * main - main function
+ * @ac: number of arguments
+ * @av: arguments
+ * Return: return 0
+ */
 int main(int ac, char **av)
 {
 	stack_t *stack = NULL;
@@ -11,7 +17,12 @@ int main(int ac, char **av)
 	file_helper(av[1], stack);
 	exit(EXIT_SUCCESS);
 }
-
+/**
+ * file_helper - process a file
+ * @filename: filename
+ * @stack: pointer that points to the address of the head of stack
+ * Return: return 0
+ */
 int file_helper(char *filename, stack_t *stack)
 {
 	int line_number = 1;
@@ -36,10 +47,17 @@ int file_helper(char *filename, stack_t *stack)
 	free(buff);
 
 	fclose(fd);
-	return (0);	
+	return (0);
 }
-
-void (*check_instruct(char *token, unsigned int line_number))(stack_t **stack, unsigned int line_number)
+/**
+ * check_instruct - check opcode
+ * @token: opcode
+ * @line_number: line number
+ * @stack: pointer points to the address of the head of stack
+ * Return: return function pointer
+ */
+void (*check_instruct(char *token, unsigned int line_number))(
+	stack_t **stack, unsigned int line_number)
 {
 	instruction_t op[] = {
 		{"push", _push},
@@ -59,7 +77,7 @@ void (*check_instruct(char *token, unsigned int line_number))(stack_t **stack, u
 			return (op[i].f);
 	}
 	if (token[0] == '#')
-		return(op[6].f);
+		return (op[6].f);
 	if (cmp != 0)
 	{
 		printf("L%u: unknown instruction %s\n", line_number, token);

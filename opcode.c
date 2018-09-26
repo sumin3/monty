@@ -1,5 +1,9 @@
 #include "monty.h"
-
+/**
+ * _push - pushes an element to the stack.
+ * @stack: pointer that points to the address of the head of stack
+ * @line_number: line number
+ */
 void _push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new = NULL;
@@ -17,14 +21,14 @@ void _push(stack_t **stack, unsigned int line_number)
 	if (num == 0)
 	{
 		printf("L%u: usage: push integer\n", line_number);
-                exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	new = malloc(sizeof(stack_t));
-        if (new == NULL)
-        {
-                printf("Error: malloc failed\n");
-                exit(EXIT_FAILURE);
-        }
+	if (new == NULL)
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	new->n = num;
 	new->prev = NULL;
 	new->next = *stack;
@@ -32,22 +36,31 @@ void _push(stack_t **stack, unsigned int line_number)
 		new->next->prev = new;
 	*stack = new;
 }
-
+/**
+ * _pall - prints all the values on the stack,
+ * starting from the top of the stack.
+ * @stack: pointer that points to the address of the head of stack
+ * @line_number: line number
+ */
 void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *cur = *stack;
 	(void) line_number;
 
-	while(cur)
+	while (cur)
 	{
 		printf("%d\n", cur->n);
 		cur = cur->next;
 	}
 }
-
+/**
+ * _pint - prints the value at the top of the stack, followed by a new line.
+ * @stack: pointer that points to the address of the head of stack
+ * @line_number: line number
+ */
 void _pint(stack_t **stack, unsigned int line_number)
 {
-        (void) line_number;
+	(void) line_number;
 
 	if (*stack == NULL)
 	{
@@ -56,9 +69,15 @@ void _pint(stack_t **stack, unsigned int line_number)
 	}
 	printf("%d\n", (*stack)->n);
 }
+/**
+ * _pop - removes the top element of the stack.
+ * @stack: pointer that points to the address of the head of stack
+ * @line_number: line number
+ */
 void _pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
+
 	if (*stack == NULL)
 	{
 		printf("L%u: can't pop an empty stack\n", line_number);
@@ -77,6 +96,11 @@ void _pop(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = NULL;
 	}
 }
+/**
+ * _swap - removes the top element of the stack.
+ * @stack: pointer that points to the address of the head of stack
+ * @line_number: line number
+ */
 void _swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp3 = NULL, *tmp1 = *stack, *tmp2 = *stack;
@@ -96,4 +120,3 @@ void _swap(stack_t **stack, unsigned int line_number)
 	tmp1->prev = *stack;
 	tmp1->next = tmp3;
 }
-
