@@ -94,7 +94,7 @@ void _div(stack_t **stack, unsigned int line_number)
 void _mul(stack_t **stack, unsigned int line_number)
 {
 	int mul = 0;
-	stack_t *second = NULL, *tmp = NULL;
+	stack_t *second = NULL;
 
 	if (!(*stack) || !(*stack)->next)
 	{
@@ -102,8 +102,7 @@ void _mul(stack_t **stack, unsigned int line_number)
 		free_info();
 		exit(EXIT_FAILURE);
 	}
-	tmp = (*stack)->next;
-	mul = (*stack)->n * tmp->n;
+	mul = (*stack)->n * (*stack)->next->n;
 	second = (*stack)->next;
 	free(*stack);
 	*stack = second;
