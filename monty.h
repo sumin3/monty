@@ -40,7 +40,20 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-int file_helper(char *filename, stack_t *stack);
+typedef struct info_s
+{
+	char *buff;
+	int buff_len;
+	stack_t *stack;
+	int line_number;
+	char *token;
+	FILE *fd;
+} info_t;
+extern info_t *info;
+void init_info();
+void free_info();
+
+int file_helper(char *filename);
 void (*check_instruct(char *token, unsigned int line_number))(stack_t **stack, unsigned int line_number);
 
 /* instruction function */

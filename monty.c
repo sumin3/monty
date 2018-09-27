@@ -1,4 +1,6 @@
 #include "monty.h"
+info_t *info = NULL;
+
 /**
  * main - main function
  * @ac: number of arguments
@@ -7,46 +9,72 @@
  */
 int main(int ac, char **av)
 {
-	stack_t *stack = NULL;
-
 	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file_helper(av[1], stack);
+	init_info();
+	file_helper(av[1]);
 	exit(EXIT_SUCCESS);
+}
+/**
+ * init_info - initialize info
+ */
+void init_info(void)
+{
+	info = malloc(sizeof(info_t));
+	if (info == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		free(info);
+		exit(EXIT_FAILURE);
+	}
+	info->buff_len = 0;
+	info->line_number = 1;
+	info->stack = NULL;
+	info->token = NULL;
+	info->buff = NULL;
+	info->fd = NULL;
+}
+/**
+ * free_info - free instruct info
+ */
+void free_info(void)
+{
+	free(info->buff);
+	free_stack(info->stack);
+	fclose(info->fd);
+	free(info);
+
 }
 /**
  * file_helper - process a file
  * @filename: filename
- * @stack: pointer that points to the address of the head of stack
  * Return: return 0
  */
-int file_helper(char *filename, stack_t *stack)
+int file_helper(char *filename)
 {
-	int line_number = 1;
 	size_t buff_size = 0;
-	char *token = NULL, *buff = NULL;
-	FILE *fd = NULL;
 
 	if (filename == NULL)
 		exit(EXIT_FAILURE);
-	fd = fopen(filename, "r");
-	if (fd == NULL)
+	info->fd = fopen(filename, "r");
+	if (info->fd == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		free(info);
 		exit(EXIT_FAILURE);
 	}
-	for (; getline(&buff, &buff_size, fd) != -1; line_number++)
+	for (; getline(&(info->buff), &buff_size, info->fd) != -1;
+	     info->line_number++)
 	{
-		token = strtok(buff, " \n");
-		check_instruct(token, line_number)(&stack, line_number);
+		info->token = strtok(info->buff, " \n");
+		check_instruct(info->token, info->line_number)(
+			&(info->stack), info->line_number);
+
 	}
-	free_stack(stack);
-	free(buff);
-	stack = NULL;
-	fclose(fd);
+	free_info();
 	return (0);
 }
 /**
@@ -70,6 +98,8 @@ void (*check_instruct(char *token, unsigned int line_number))(
 	};
 	int i, num_inst = 7, cmp = 0;
 
+	if (token == NULL)
+		return (_nop);
 	for (i = 0; i < num_inst; i++)
 	{
 		cmp = strcmp(token, op[i].opcode);
@@ -81,6 +111,7 @@ void (*check_instruct(char *token, unsigned int line_number))(
 	if (cmp != 0)
 	{
 		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
+		free_info();
 		exit(EXIT_FAILURE);
 	}
 	return (NULL);

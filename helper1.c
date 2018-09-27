@@ -9,6 +9,8 @@ int is_integer(char *s)
 	int i = 1;
 	int integer = 0;
 
+	if (s == NULL)
+		return (0);
 	if (s[0] == '-')
 	{
 		integer = 1;
@@ -32,18 +34,7 @@ int is_integer(char *s)
 	}
 	return (integer);
 }
-/**
- * free_stack - free a stack
- * @stack: pointer that point to address of the head of stack
- */
-void free_stack(stack_t *stack)
-{
-	while (stack)
-	{
-		free(stack);
-		stack = (stack)->next;
-	}
-}
+
 /**
  * stack_len - find the size of a stack
  * @stack: pointer that points to the address of the head of stack

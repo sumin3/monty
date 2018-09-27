@@ -7,7 +7,7 @@
  */
 stack_t *add_dnodeint(stack_t **head, const int n)
 {
-	stack_t *new = *head;
+	stack_t *new = NULL, *tmp = *head;
 
 	if (head == NULL)
 		return (NULL);
@@ -15,13 +15,32 @@ stack_t *add_dnodeint(stack_t **head, const int n)
 	if (new == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free_info();
 		exit(EXIT_FAILURE);
 	}
 	new->n = n;
 	new->prev = NULL;
-	new->next = *head;
-	if (*head != NULL)
-		(*head)->prev = new;
+	new->next = tmp;
+	if (tmp != NULL)
+	{
+		tmp->prev = new;
+	}
 	*head = new;
 	return (new);
+}
+/**
+ * free_stack - free a stack
+ * @stack: pointer that point to address of the head of stack
+ */
+void free_stack(stack_t *stack)
+{
+	stack_t *cur = stack;
+
+	while (stack != NULL)
+	{
+		cur = cur->next;
+		free(stack);
+		stack = cur;
+	}
+	stack = NULL;
 }
