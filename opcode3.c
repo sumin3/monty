@@ -8,11 +8,10 @@
  */
 void _mod(stack_t **stack, unsigned int line_number)
 {
-	int len, mod = 0;
+	int mod = 0;
 	stack_t *second = NULL;
 
-	len = stack_len(*stack);
-	if (len < 2)
+	if (!(*stack) || !(*stack)->next)
 	{
 		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		free_info();
@@ -24,7 +23,7 @@ void _mod(stack_t **stack, unsigned int line_number)
 		free_info();
 		exit(EXIT_FAILURE);
 	}
-	mod = (*stack)->n % (*stack)->next->n;
+	mod = (*stack)->next->n % (*stack)->n;
 	second = (*stack)->next;
 	free(*stack);
 	*stack = second;
