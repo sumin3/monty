@@ -68,7 +68,7 @@ void _pstr(stack_t **stack, unsigned int line_number)
 		if ((*stack)->n < 32 || (*stack)->n > 127)
 		{
 			cur = cur->next;
-			continue;
+			break;
 		}
 		printf("%c", cur->n);
 		cur = cur->next;
