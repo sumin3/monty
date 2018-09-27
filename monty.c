@@ -11,7 +11,7 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		printf("USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	file_helper(av[1], stack);
@@ -35,7 +35,7 @@ int file_helper(char *filename, stack_t *stack)
 	fd = fopen(filename, "r");
 	if (fd == NULL)
 	{
-		printf("Error: Can't open file %s\n", filename);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 	for (; getline(&buff, &buff_size, fd) != -1; line_number++)
@@ -80,7 +80,7 @@ void (*check_instruct(char *token, unsigned int line_number))(
 		return (op[6].f);
 	if (cmp != 0)
 	{
-		printf("L%u: unknown instruction %s\n", line_number, token);
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
 		exit(EXIT_FAILURE);
 	}
 	return (NULL);
