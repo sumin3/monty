@@ -44,11 +44,34 @@ void _pchar(stack_t **stack, unsigned int line_number)
 		free_info();
 		exit(EXIT_FAILURE);
 	}
-	if ((*stack)->n < 0 || (*stack)->n > 127)
+	if ((*stack)->n < 32 || (*stack)->n > 127)
 	{
 		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
 		free_info();
 		exit(EXIT_FAILURE);
 	}
 	printf("%c\n", (*stack)->n);
+}
+/**
+ * _pstr - prints the string starting at the
+ * top of the stack, followed by a new line.
+ * @stack: pointer that points to the address of the head of stack
+ * @line_number: line number
+ */
+void _pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *cur = *stack;
+	(void) line_number;
+
+	while (cur)
+	{
+		if ((*stack)->n < 32 || (*stack)->n > 127)
+		{
+			cur = cur->next;
+			continue;
+		}
+		printf("%c", cur->n);
+		cur = cur->next;
+	}
+	printf("\n");
 }
