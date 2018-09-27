@@ -66,26 +66,21 @@ int file_helper(char *filename)
 		free(info);
 		exit(EXIT_FAILURE);
 	}
-	for (; getline(&(info->buff), &buff_size, info->fd) != -1;
-	     info->line_number++)
+	while (getline(&(info->buff), &buff_size, info->fd) != -1)
 	{
 		info->token = strtok(info->buff, " \n");
-		check_instruct(info->token, info->line_number)(
-			&(info->stack), info->line_number);
-
+		check_instruct(info)(&(info->stack), info->line_number);
+		info->line_number++;
 	}
 	free_info();
 	return (0);
 }
 /**
  * check_instruct - check opcode
- * @token: opcode
- * @line_number: line number
- * @stack: pointer points to the address of the head of stack
+ * @info: struct
  * Return: return function pointer
  */
-void (*check_instruct(char *token, unsigned int line_number))(
-	stack_t **stack, unsigned int line_number)
+void (*check_instruct(info_t *info))(stack_t **stack, unsigned int line_number)
 {
 	instruction_t op[] = {
 		{"push", _push},
@@ -98,19 +93,20 @@ void (*check_instruct(char *token, unsigned int line_number))(
 	};
 	int i, num_inst = 7, cmp = 0;
 
-	if (token == NULL)
+	if (info->token == NULL)
 		return (_nop);
 	for (i = 0; i < num_inst; i++)
 	{
-		cmp = strcmp(token, op[i].opcode);
+		cmp = strcmp(info->token, op[i].opcode);
 		if (cmp == 0)
 			return (op[i].f);
 	}
-	if (token[0] == '#')
-		return (op[6].f);
+	if (info->token[0] == '#')
+		return (_nop);
 	if (cmp != 0)
 	{
-		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
+		fprintf(stderr, "L%u: unknown instruction %s\n",
+			info->line_number, info->token);
 		free_info();
 		exit(EXIT_FAILURE);
 	}

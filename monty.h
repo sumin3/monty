@@ -54,7 +54,7 @@ void init_info();
 void free_info();
 
 int file_helper(char *filename);
-void (*check_instruct(char *token, unsigned int line_number))(stack_t **stack, unsigned int line_number);
+void (*check_instruct(info_t *info))(stack_t **stack, unsigned int line_number);
 
 /* instruction function */
 void _push(stack_t **stack, unsigned int line_number);
