@@ -11,6 +11,8 @@ int is_integer(char *s)
 
 	if (s[0] == '-')
 		integer = 1;
+	else if (s[0] >= '0' && s[0] <= '9')
+		integer = 1;
 	while (s[i] != '\0')
 	{
 		if (s[i] >= '0' && s[i] <= '9')
