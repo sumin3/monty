@@ -45,7 +45,7 @@ int file_helper(char *filename, stack_t *stack)
 	}
 	free_stack(stack);
 	free(buff);
-
+	stack = NULL;
 	fclose(fd);
 	return (0);
 }

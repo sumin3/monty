@@ -6,7 +6,6 @@
  */
 void _push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new = NULL;
 	char *tk;
 	int num, integer;
 
@@ -18,23 +17,7 @@ void _push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	num = atoi(tk);
-	if (num == 0)
-	{
-		printf("L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	new = malloc(sizeof(stack_t));
-	if (new == NULL)
-	{
-		printf("Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	new->n = num;
-	new->prev = NULL;
-	new->next = *stack;
-	if (new->next != NULL)
-		new->next->prev = new;
-	*stack = new;
+	add_dnodeint(stack, num);
 }
 /**
  * _pall - prints all the values on the stack,

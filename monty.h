@@ -52,10 +52,12 @@ void _swap(stack_t **stack, unsigned int line_number);
 void _add(stack_t **stack, unsigned int line_number);
 void _nop(stack_t **stack, unsigned int line_number);
 
-/* helper function*/
+/* helper1 function*/
 int _atoi(char *s);
 int stack_len(stack_t *stack);
 void free_stack(stack_t *stack);
 int is_integer(char *s);
 
+/* helper2 function*/
+stack_t *add_dnodeint(stack_t **head, const int n);
 #endif

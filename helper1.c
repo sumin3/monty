@@ -10,7 +10,11 @@ int is_integer(char *s)
 	int integer = 0;
 
 	if (s[0] == '-')
+	{
 		integer = 1;
+		if (s[1] == '\0')
+			integer = 0;
+	}
 	else if (s[0] >= '0' && s[0] <= '9')
 		integer = 1;
 	while (s[i] != '\0')
