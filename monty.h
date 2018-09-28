@@ -70,13 +70,15 @@ void _mul(stack_t **stack, unsigned int line_number);
 void _mod(stack_t **stack, unsigned int line_number);
 void _pchar(stack_t **stack, unsigned int line_number);
 void _pstr(stack_t **stack, unsigned int line_number);
+void _rotl(stack_t **stack, unsigned int line_number);
 
 /* helper1 function*/
 int stack_len(stack_t *stack);
 int is_integer(char *s);
 
 /* helper2 function*/
-stack_t *add_dnodeint(stack_t **head, const int n);
+stack_t *add_stack_top(stack_t **head, const int n);
+stack_t *add_stack_end(stack_t **head, const int n);
 void free_stack(stack_t *stack);
 
 #endif

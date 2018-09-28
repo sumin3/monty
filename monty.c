@@ -95,9 +95,10 @@ void (*check_instruct(info_t *info))(stack_t **stack, unsigned int line_number)
 		{"mul", _mul},
 		{"mod", _mod},
 		{"pchar", _pchar},
-		{"pstr", _pstr}
+		{"pstr", _pstr},
+		{"rotl", _rotl}
 	};
-	int i, num_inst = 13, cmp = 0;
+	int i, num_inst = 14, cmp = 0;
 
 	if (info->token == NULL)
 		return (_nop);

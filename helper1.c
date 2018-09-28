@@ -11,20 +11,21 @@ int is_integer(char *s)
 
 	if (s == NULL)
 		return (0);
+
 	if (s[0] == '-')
 	{
 		integer = 1;
 		if (s[1] == '\0')
-			integer = 0;
+			return (0);
 	}
 	else if (s[0] >= '0' && s[0] <= '9')
 		integer = 1;
+	else
+		return (0);
 	while (s[i] != '\0')
 	{
 		if (s[i] >= '0' && s[i] <= '9')
-		{
 			integer = 1;
-		}
 		else
 		{
 			integer = 0;

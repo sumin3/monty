@@ -18,7 +18,7 @@ void _push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	num = atoi(tk);
-	add_dnodeint(stack, num);
+	add_stack_top(stack, num);
 }
 /**
  * _pall - prints all the values on the stack,
