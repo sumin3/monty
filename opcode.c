@@ -18,7 +18,10 @@ void _push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	num = atoi(tk);
-	add_stack_top(stack, num);
+	if (info->queue == 0)
+		add_stack_top(stack, num);
+	else if (info->queue == 1)
+		add_stack_end(stack, num);
 }
 /**
  * _pall - prints all the values on the stack,

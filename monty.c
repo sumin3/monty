@@ -32,6 +32,7 @@ void init_info(void)
 	}
 	info->buff_len = 0;
 	info->line_number = 1;
+	info->queue = 0;
 	info->stack = NULL;
 	info->token = NULL;
 	info->buff = NULL;
@@ -82,14 +83,8 @@ int file_helper(char *filename)
  */
 void (*check_instruct(info_t *info))(stack_t **stack, unsigned int line_number)
 {
-	instruction_t op[] = {
-		{"push", _push},
-		{"pall", _pall},
-		{"pint", _pint},
-		{"pop", _pop},
-		{"swap", _swap},
-		{"add", _add},
-		{"nop", _nop},
+	instruction_t op[] = {{"push", _push}, {"pall", _pall}, {"pint", _pint},
+		{"pop", _pop}, {"swap", _swap}, {"add", _add}, {"nop", _nop},
 		{"sub", _sub},
 		{"div", _div},
 		{"mul", _mul},
@@ -97,12 +92,21 @@ void (*check_instruct(info_t *info))(stack_t **stack, unsigned int line_number)
 		{"pchar", _pchar},
 		{"pstr", _pstr},
 		{"rotl", _rotl},
-		{"rotr", _rotr}
-	};
+		{"rotr", _rotr} };
 	int i, num_inst = 15, cmp = 0;
 
 	if (info->token == NULL)
 		return (_nop);
+	if (strcmp(info->token, "queue") == 0)
+	{
+		info->queue = 1;
+		return (_nop);
+	}
+	else if (strcmp(info->token, "stack") == 0)
+	{
+		info->queue = 0;
+		return (_nop);
+	}
 	for (i = 0; i < num_inst; i++)
 	{
 		cmp = strcmp(info->token, op[i].opcode);

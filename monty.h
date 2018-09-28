@@ -46,6 +46,7 @@ typedef struct info_s
 	int buff_len;
 	stack_t *stack;
 	int line_number;
+	int queue;
 	char *token;
 	FILE *fd;
 } info_t;

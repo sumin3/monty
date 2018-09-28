@@ -22,7 +22,7 @@ stack_t *add_stack_end(stack_t **head, const int n)
 		*head = new;
 	else
 	{
-		if (tmp->next != NULL)
+		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new;
 		new->prev = tmp;
