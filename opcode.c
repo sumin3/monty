@@ -86,7 +86,7 @@ void _pop(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * _swap - removes the top element of the stack.
+ * _swap - swap the first two elements of the stack
  * @stack: pointer that points to the address of the head of stack
  * @line_number: line number
  */
