@@ -42,9 +42,19 @@ Once the .c files are compiled you can run the program by issuing the command
 
 ## Usage Examples
 ```
+$cat 00.m
+push 1
+push 2
+push 3
+pall
+swap
+pall
 $ ./monty 00.m
 3
 2
+1
+2
+3
 1
 ```
 
