@@ -47,11 +47,36 @@ $ ./monty 00.m
 2
 1
 ```
+
+## Opcode
+Opcode | Desc
+push | pushes an element to the stack.
+pall | prints all the values on the stack
+pint | prints the value at the top of the stack, followed by a new\
+ line.
+pop | removes the top element of the stack.
+swap | swap the first two element of the stack.
+add | adds the top two elements of the stack.
+nop | do nothing
+sub | subtracts the top element of the stack from the second top \
+element
+div | divides the second top element of the stack by the top elem\
+ent of the stack.
+mul | multiplies the second top element of the stack with the top\
+ element of the stack.
+mod | computes the rest of the division of the second top element \
+of the stack by the top element of the stack
+pchar | prints the char at the top of the stack, followed by a ne\
+w line.
+pstr | prints the string starting at the top of the stack, follow\
+ed by a new line.
+rotl | rotates the stack to the top.
+rotr | rotates the stack to the bottom.
 ## Files
 File | Function | Desc
 ---|---|---
-monty.c | main function | execute the bytecodes.
-.	|  init_info function | initialize the struct, info.
+monty.c | main | execute the bytecodes.
+.	|  init_info | initialize the struct, info.
 .	|  free_info | free the struct, info.
 .	|  file_helper | process a file.
 .       |  check_instruct | check opcode
@@ -70,5 +95,10 @@ opcode3.c | _mod | computes the rest of the division of the second top element o
 .          | _pstr | prints the string starting at the top of the stack, followed by a new line.
 .          | _rotl | rotates the stack to the top.
 .          | _rotr | rotates the stack to the bottom.
+helper1.c | is_integer | determine a string is integer or not
+.         | stack_len | find the size of a stack
+helper2.c | add_stack_end | add a new node at the end of stack
+.         | add_stack_top | add a new node at the beginning of stack
+.         | free_stack | free a stack
 ## Authors
 Sumin Yu
